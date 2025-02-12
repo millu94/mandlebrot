@@ -17,10 +17,12 @@ class Mandlebrot:
 
         self.XX, self.YY = np.meshgrid(self.real_axis, self.imaginary_axis)
 
+        self.complex_number = self.XX + self.YY*1j
+
     """
     function to calculate how many iterations of n it takes for |z_n| > 2
     """
-    def determine_mandlebrot_set(self):
+    def generate_mandlebrot(self):
 
         """
         values of c (eg 3 + 2i or  2.4 - 9.7i) are determined by the bounds 
@@ -31,9 +33,14 @@ class Mandlebrot:
 
             if |z_n| > 2 where z_(n+1) = z_n^2 + c, then set the grid coordinate
             attribute -number of iterations- to n ie n = 30 
-
-        
         """
+
+        # z_n = 0
+        # z_n = z_n**2 + self.complex_number
+
+        print(self.complex_number)
+
+
 
 
     
@@ -63,8 +70,7 @@ def main():
         real_lower, real_upper, imaginary_lower, imaginary_upper
     )
 
-    print(user_mandlebrot.XX)
-    print(user_mandlebrot.YY)
+    user_mandlebrot.generate_mandlebrot()
 
 if __name__ == "__main__":
     main()
