@@ -19,7 +19,7 @@ Z = X**2 + Y**2
 
 # Plot the surface
 fig = plt.figure()
-ax = fig.add_subplot(111, projection='2d')
+ax = fig.add_subplot(111, projection='3d')
 ax.plot_surface(X, Y, Z, cmap='viridis')
 plt.title("3D Surface Plot")
 plt.show()

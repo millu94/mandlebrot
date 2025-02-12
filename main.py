@@ -6,16 +6,16 @@ class Mandlebrot:
     def __init__(
         self, real_lower, real_upper, imaginary_lower, imaginary_upper
     ):
-        # self.real_lower = real_lower
-        # self.real_upper = real_upper
-        # self.imaginary_lower = imaginary_lower
-        # self.imaginary_upper = imaginary_upper
+        self.real_lower = real_lower
+        self.real_upper = real_upper
+        self.imaginary_lower = imaginary_lower
+        self.imaginary_upper = imaginary_upper
 
         # instantiate 2d grid (512 x 512) bounded by given values
         self.real_axis = np.linspace(real_lower, real_upper, 512)
         self.imaginary_axis = np.linspace(imaginary_lower, imaginary_upper, 512)
 
-        self.grid = np.zeros((512, 512))
+        self.XX, self.YY = np.meshgrid(self.real_axis, self.imaginary_axis)
 
     """
     function to calculate how many iterations of n it takes for |z_n| > 2
@@ -46,7 +46,7 @@ def main():
     and Im(C)
     """
 
-    print("Insert values for domain and range to view ")
+    # print("Insert values for domain and range to view ")
 
 
     real_lower = -2.025
@@ -63,7 +63,8 @@ def main():
         real_lower, real_upper, imaginary_lower, imaginary_upper
     )
 
-    user_mandlebrot.display_mandlebrot()
+    print(user_mandlebrot.XX)
+    print(user_mandlebrot.YY)
 
 if __name__ == "__main__":
     main()
