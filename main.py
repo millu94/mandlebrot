@@ -19,13 +19,13 @@ class Mandlebrot:
 
         # for complex values
         self.XX, self.YY = np.meshgrid(self.real_axis, self.imaginary_axis)
-        self.complex_number = self.XX + self.YY*1j
+        self.complex_array = self.XX + self.YY*1j
 
         # empty grid of zeros that will be updated with corresponding n value 
         self.mandlebrot_grid = np.zeros((512, 512))
 
     """
-    function to calculate how many iterations of n it takes for |z_n| > 2
+    calculates and displays mandlebrot grid
     """
     def generate_mandlebrot(self):
 
@@ -36,23 +36,32 @@ class Mandlebrot:
         iterate through 2d grid with x and y coordinates representing complex 
         numbers c (512x512 means 262144 iterations)
 
-            if |z_n| > 2 where z_(n+1) = z_n^2 + c, then set the 
-            grid coordinate attribute -number of iterations- to n ie n = 30 
+            if |z_n| > 2 where z_(n+1) = z_n^2 + c, then set the empty
+            grid coordinate -number of iterations- to n ie n = 30 
         """
-        # set z_n to equal a 512 by 512 grid of zeros
-        z_n = self.mandlebrot_grid  
-        z_n = z_n**2 + self.complex_number
-        if abs(z_nplus1) > 2:
-            # take x and y coordinate for self.complex_number 
+        for i, row in enumerate(self.complex_array):
+            for j, complex_number in enumerate(row):
+                z = 0 + 0j
+                for iteration_number in range(255):
+                    z = z**2 + complex_number
+                    if abs(z) > 2:
+                        self.mandlebrot_grid[i][j] = iteration_number
+                        break
+
+        plt.imshow(
+            self.mandlebrot_grid, 
+            extent=(
+                self.real_lower, self.real_upper, self.imaginary_lower,
+                self.imaginary_upper
+            ),
+            interpolation='none', 
+            cmap='hot'
+        )
+        plt.colorbar()
+        plt.show()
 
 
-
-
-
-
-
-    
-
+        
 
 def main():
 
@@ -60,19 +69,16 @@ def main():
     when creating an object, pass through the domain and range of Re(C) 
     and Im(C)
     """
+    print("Insert values for domain and range to view ")
 
-    # print("Insert values for domain and range to view ")
-
-
-    real_lower = -2.025
-    real_upper = 0.6
-    # real_lower = float(input("Set the lower domain for Re(C): "))
-    # real_upper = float(input("Set the upper domain for Re(C): ")_
-
-    imaginary_lower = -1.125
-    imaginary_upper = 1.125
-    # imaginary_lower = float(input("Set the lower range for Im(C): "))
-    # imaginary_upper = float(input("Set the upper range for Im(C): "))
+    # real_lower = -2.025
+    # real_upper = 0.6
+    real_lower = float(input("Set the lower domain for Re(C): "))
+    real_upper = float(input("Set the upper domain for Re(C): "))
+    # imaginary_lower = -1.125
+    # imaginary_upper = 1.125
+    imaginary_lower = float(input("Set the lower range for Im(C): "))
+    imaginary_upper = float(input("Set the upper range for Im(C): "))
 
     user_mandlebrot = Mandlebrot(
         real_lower, real_upper, imaginary_lower, imaginary_upper
